@@ -4,26 +4,42 @@ using UnityEngine;
 
 public class BuildWay : MonoBehaviour {
 
-    public GameObject head;
-    public GameObject tail;
+    public Node root;
+    //public Node tail;
 
 	void Start () {
+        createEdges(root);
+	}
 
-        float distance = pointDistance(head.transform.position, tail.transform.position);
-        Vector3 vector = getVectorTwoPoints(head.transform.position, tail.transform.position);
-        Vector3 basis = new Vector3(vector.x / distance, vector.y / distance, vector.z / distance);
-        Debug.Log(distance);
-        Debug.Log(vector);
-        Debug.Log(basis);
+    private void createEdges(Node node)
+    {
+        if(node == null)
+        {
+            return;
+        }
+        for(int i = 0; i < node.Nodes.Length; i++)
+        {
+            //Debug.Log(node.name);
 
-        for(int i = 0; i < distance; i++)
+            //Debug.Log(node.transform.position);
+            createEdge(node.transform.position, node.Nodes[i].transform.position);
+            createEdges(node.Nodes[i]);
+        }
+        
+    }
+
+    private void createEdge(Vector3 head, Vector3 tail)
+    {
+        float distance = pointDistance(head, tail);
+        Vector3 vector = getVectorTwoPoints(head, tail);
+        Vector3 basis = getBasis(vector, distance);
+
+        for (int i = 0; i < distance; i++)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            cube.transform.position = new Vector3(basis.x*i, basis.y*i, basis.z*i);
+            cube.transform.position = new Vector3(head.x+basis.x * i, head.y + basis.y * i, head.z + basis.z * i);
         }
-
-		
-	}
+    }
 
     private float pointDistance(Vector3 head, Vector3 tail)
     {
@@ -35,4 +51,8 @@ public class BuildWay : MonoBehaviour {
         return new Vector3(tail.x - head.x, tail.y - head.y, tail.z - head.z);
     }
 
+    private Vector3 getBasis(Vector3 vector, float distance)
+    {
+        return new Vector3(vector.x / distance, vector.y / distance, vector.z / distance);
+    }
 }

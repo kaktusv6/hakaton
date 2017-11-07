@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-
+    public Transform transform;
 	public Node[] Nodes;
-	public Node Parent;
+	private Node Parent;
 	
 	// Use this for initialization
 	void Start () {
