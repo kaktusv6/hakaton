@@ -12,7 +12,7 @@ public class Node : MonoBehaviour
 	void Start () {
 		foreach (Node node in Nodes)
 		{
-			Debug.Log(node.gameObject.name);
+			//Debug.Log(node.gameObject.name);
 			node.Parent = this;
 		}	
 	}
