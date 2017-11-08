@@ -8,13 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76b89ff4afc5a04195eab54bc63d331, type: 3}
+  m_Script: {fileID: -2067402452, guid: 1e108ae5f2133934f948edded555f03e, type: 3}
   m_Name: VuforiaConfiguration
   m_EditorClassIdentifier: 
   vuforia:
-    vuforiaLicenseKey: 
+    vuforiaLicenseKey: ATl3bgX/////AAAAGb/0uhhayEMyqtxsUyKH0K82O8+GBXpiVZ6GJ367w8GUtC6b+KajZIUTJU847QFxRcRT2FKwbIzX9w+l/0pOPJVCw9KVFrTjCc3kDDLXJanZgUz+eTGI5aolV/CF97h1qxVmrDIoNltD0W2HEqa1LLs50vsCL3S1LzoGVNvN2VLM2tU+Y9yh3CQbR3/nxBrNdUmkGYQRlo5CmsXRNHCfb30QLk0mQJJPz4LUjAZZTBCzgmddqngAZ/CJnuXZxl5WNkqpHWIx1VVZ2gXS7guotw7uJN4MjuswT9oz4Zw9z640S+aAn1HZl97tGxeHZ0fZULTnh72azIfn2v3c8v6FUMXPmmNkVv1KB8H6vRGlMKOM
+    ufoLicenseKey: QVJ0bXFYRC8vLy8vQUFBQUtNWjd3bXA4eGttbHJ5ckd4Y0hHWW9xVkQwbXdsdGNFZjFoeGNZVlREcTdQeWxlcHRaZEdwRTYzWFBsanc2LzlOM1BTTnpXdjB1SWU0eEZtUHpKSERZcWNGZkFmZ2FnemF1eUkrdFdYL2FJVzBOWTJ4RSs5U3NWZ0pKQ3JJS0VvM25VNGo5aUhsRU82Qmx6bVR0cHNVTTZlNmdCMmNzUHVCa25hMGNOa1ZkNW9BTmdrNkJaVVh0REFCNUxJYWFMWWozdFNacEZKTk1ia2xxWWJtKzAvT2FKM2grb2NzbTFTbGdGTSt3RXZraXk5eU96Y04zMnJWM2JqcE5ROFQ1eERMU3R4U05EQlVaZnNGYUp6ZDVYczMxajhHTld1VGpvc2hGdnNUb2l2c09WaGNMTjRzM2xkUTl3TDh6UzNtYWxMTjc2dHUyVFNxUGVlUlBOeHJiT0ttNTdlcHdQdmszYnhPQm1YWUxBOE81OXI=
     delayedInitialization: 0
-    cameraDeviceModeSetting: -1
+    cameraDeviceModeSetting: -3
     maxSimultaneousImageTargets: 1
     maxSimultaneousObjectTargets: 1
     useDelayedLoadingObjectTargets: 0
@@ -22,7 +23,6 @@ MonoBehaviour:
     mirrorVideoBackground: 0
   digitalEyewear:
     cameraOffset: 0.06
-    distortionRenderingMode: 2
     distortionRenderingLayer: 31
     eyewearType: 0
     stereoFramework: 0
@@ -43,11 +43,24 @@ MonoBehaviour:
       FieldOfView: {x: 0, y: 0, z: 0, w: 0}
       ContainsMagnet: 0
   databaseLoad:
-    dataSetsToLoad: []
-    dataSetsToActivate: []
+    dataSetsToLoad:
+    - HakatonNavigation
+    - PLane
+    - VuforiaMars_Images
+    - VuforiaMars_Object_OT
+    - VuforiaMars_VuMark
+    dataSetsToActivate:
+    - PLane
+    - HakatonNavigation
+    - VuforiaMars_Images
+    - VuforiaMars_Object_OT
+    - VuforiaMars_VuMark
   videoBackground:
     clippingMode: 0
-    matteShader: {fileID: 4800000, guid: f84e93cca971cda47a225f4c6a4156c9, type: 3}
+    numDivisions: 2
+    videoBackgroundShader: {fileID: 15311, guid: 0000000000000000f000000000000000,
+      type: 0}
+    matteShader: {fileID: 15310, guid: 0000000000000000f000000000000000, type: 0}
     videoBackgroundEnabled: 1
   smartTerrainTracker:
     autoInitTracker: 0
@@ -57,6 +70,7 @@ MonoBehaviour:
   deviceTracker:
     autoInitTracker: 0
     autoStartTracker: 0
+    trackingMode: 0
     posePrediction: 0
     modelCorrectionMode: 0
     modelTransformEnabled: 0

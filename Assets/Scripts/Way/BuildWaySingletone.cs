@@ -10,7 +10,7 @@ public class BuildWaySingletone : MonoBehaviour {
         get {
             if(_buildWay == null)
             {
-                _buildWay = GameObject.Find("BuildWay").GetComponent("BuildWay") as BuildWay;
+                _buildWay = GameObject.FindGameObjectWithTag("BuildWay").GetComponent("BuildWay") as BuildWay;
             }
             return _buildWay;
         }

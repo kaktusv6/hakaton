@@ -8,7 +8,8 @@ public class Node : MonoBehaviour
     private static int INF = 1000000;
     private Transform transform;
 	public Node[] Nodes;
-	
+//    public String Name;
+    
     private float weight = INF;
     private int prev = -1;
     private bool isOpen = false;
@@ -16,6 +17,7 @@ public class Node : MonoBehaviour
 	// Use this for initialization
 	void Start () {
         transform = gameObject.transform;
+	    Destroy(transform.GetChild(0).gameObject);
 	}
 	
 	// Update is called once per frame
@@ -51,7 +53,8 @@ public class Node : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.name == "Player")
+        Debug.Log(col.gameObject.name);
+        if(col.gameObject.CompareTag("MainCamera"))
         {
             BuildWaySingletone.run(this);
         }

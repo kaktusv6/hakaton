@@ -2,21 +2,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class BuildWay : MonoBehaviour {
 
-    private static string NODE= "Node";
+    private static string NODE = "Node";
 
-    public Node start;
+//    public Node start;
     public Node finish;
     public int countNodes;
     public GameObject relation;
     public GameObject way;
     List<List<float>> graf;
 
+//    private Transform rootOther;
+    
     void Start () {
 
+        countNodes = GameObject.FindGameObjectsWithTag("Node").Length;
         initGraf();
+//        rootOther = GameObject.FindGameObjectWithTag("Other");
     }
 
     public void run(Node node)
@@ -29,24 +34,30 @@ public class BuildWay : MonoBehaviour {
 
     private void createEdge(Vector3 head, Vector3 tail, GameObject obj)
     {
+        if (!obj) return;
         float distance = pointDistance(head, tail);
         Vector3 vector = getVectorTwoPoints(head, tail);
         Vector3 basis = getBasis(vector, distance);
 
+        Vector3 dir = tail - head;
+        dir = dir.normalized;
+        
         for (int i = 0; i < distance; i++)
         {
-            GameObject dot = Instantiate(obj, new Vector3(head.x + basis.x * i, head.y + basis.y * i, head.z + basis.z * i),Quaternion.identity);
+            GameObject dot = Instantiate(obj, head + basis * i, Quaternion.identity, transform);
+            dot.transform.forward = dir;
         }
     }
 
     private float pointDistance(Vector3 head, Vector3 tail)
     {
-        return Mathf.Sqrt(Mathf.Pow(head.x - tail.x, 2) + Mathf.Pow(head.y - tail.y, 2) + Mathf.Pow(head.z - tail.z, 2));
+        Vector3 dis = head - tail;
+        return dis.magnitude;
     }
 
     private Vector3 getVectorTwoPoints(Vector3 head, Vector3 tail)
     {
-        return new Vector3(tail.x - head.x, tail.y - head.y, tail.z - head.z);
+        return tail - head;
     }
 
     private Vector3 getBasis(Vector3 vector, float distance)
@@ -82,8 +93,8 @@ public class BuildWay : MonoBehaviour {
                     continue;
                 }
 
-                Node nodeHead = GameObject.Find(i.ToString()).GetComponent("Node") as Node;
-                Node nodeTail = GameObject.Find(j.ToString()).GetComponent("Node") as Node;
+                Node nodeHead = GameObject.Find(i.ToString()).GetComponent<Node>();
+                Node nodeTail = GameObject.Find(j.ToString()).GetComponent<Node>();
 
                 if (graf[i][j] == -1)
                 {
@@ -109,7 +120,7 @@ public class BuildWay : MonoBehaviour {
         Debug.Log(node.name);
         GameObject gameObject = GameObject.Find(node.getPrev().ToString());
         if (gameObject == null) return;
-        Node next = gameObject.GetComponent("Node") as Node;
+        Node next = gameObject.GetComponent<Node>();
 
         createEdge(next.transform.position, node.transform.position, way);
         printWay(next);
@@ -144,9 +155,7 @@ public class BuildWay : MonoBehaviour {
             {
                 step(node);
                 node.setIsOpen(true);
-
             }
-
         }
     }
 

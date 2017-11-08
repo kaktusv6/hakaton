@@ -39,10 +39,6 @@ sysinfo.txt
 *.unitypackage
 
 # Vuforia
-Assets/Vuforia/
-Assets/Plugins/
-Assets/license_3rdpartynotice.txt
-Assets/link.xml
-Assets/readme_SDK.txt
+Assets/Packages/
 
 # End of https://www.gitignore.io/api/unity
