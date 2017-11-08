@@ -23,11 +23,9 @@ public class BuildWay : MonoBehaviour {
         start.setWeight(0);
 
         initGraf();
-        //testSecond(start);
-        //printWay(finish);
+        testSecond(start);
+        printWay(finish);
         
-        //Debug.Log(shortWay());
-        //createEdges(root);
 	}
 
     private void createEdge(Vector3 head, Vector3 tail)
@@ -180,34 +178,58 @@ public class BuildWay : MonoBehaviour {
 
     private void testSecond(Node start) 
     {
-        Node node = start;
+        Node node = new Node();
+        bool change = false;
 
-        for (int i = 0; i < countNodes; i++)
+        for (int j = 0; j < countNodes; j++)
         {
-            GameObject gameObject = GameObject.Find(i.ToString());
-            if (gameObject == null) continue;
-            Node bufferNode = gameObject.GetComponent(NODE) as Node;
+            change = false;
+            node = new Node();
 
-            if((node.getWeight() > bufferNode.getWeight()) && (node.getIsOpen() == false ))
+            for (int i = 0; i < countNodes; i++)
             {
-                node = bufferNode;
-            }
-        }
+                if (GameObject.Find(i.ToString()) != null)
+                {
+                    Node bufferNode = GameObject.Find(i.ToString()).GetComponent(NODE) as Node;
 
-        step(node);
+                    if ((node.getWeight() > bufferNode.getWeight()) && (bufferNode.getIsOpen() == false))
+                    {
+                        node = bufferNode;
+                        change = true;
+                    }
+                } 
+                
+            }
+
+            if (change == true)
+            {
+                step(node);
+                node.setIsOpen(true);
+
+            }
+
+        }
     }
 
     private void step(Node node)
     {
-        node.setIsOpen(true);
         for(int i = 0; i < countNodes; i++)
         {
-            GameObject gameObject = GameObject.Find(i.ToString());
-            if (gameObject == null) continue;
-            Node bufferNode = gameObject.GetComponent(NODE) as Node;
+            if (Int32.Parse(node.name) == i) continue;
+            if (GameObject.Find(i.ToString()) == null) continue;
 
-            //float sum = 
-            //if()
+            Node bufferNode = GameObject.Find(i.ToString()).GetComponent(NODE) as Node;
+
+            if (node.getIsOpen() == true) continue; //если уже открыта
+            if (graf[Int32.Parse(node.name)][i] == -1) continue; //если нет связи
+            
+            float sum = node.getWeight() + graf[Int32.Parse(node.name)][i];
+            if (sum > bufferNode.getWeight()) continue; //если сумма больше чем было
+
+            bufferNode.setWeight(sum); //сохраням новую метку
+            bufferNode.setPrev(Int32.Parse(node.name));
+            
         }
+
     }
 }

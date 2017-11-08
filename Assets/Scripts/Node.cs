@@ -7,21 +7,13 @@ public class Node : MonoBehaviour
     private static int INF = 1000000;
     public Transform transform;
 	public Node[] Nodes;
-	private Node Parent;
-    private float weight;
-    private int prev;
-    private bool isOpen;
+	
+    public float weight = INF;
+    public int prev = -1;
+    public bool isOpen = false;
 	
 	// Use this for initialization
 	void Start () {
-        weight = INF;
-        prev = -1;
-        isOpen = false;
-		foreach (Node node in Nodes)
-		{
-			//Debug.Log(node.gameObject.name);
-			node.Parent = this;
-		}	
 	}
 	
 	// Update is called once per frame
