@@ -10,20 +10,24 @@ public class BuildWay : MonoBehaviour {
     public Node start;
     public Node finish;
     public int countNodes;
-    public PrimitiveType relation;
-    public PrimitiveType way;
+    public GameObject relation;
+    public GameObject way;
     List<List<float>> graf;
 
     void Start () {
-        start.setWeight(0);
 
         initGraf();
+    }
+
+    public void run(Node node)
+    {
+        node.setWeight(0);
+        
         buildShortWay();
         printWay(finish);
-        
-	}
+    }
 
-    private void createEdge(Vector3 head, Vector3 tail, PrimitiveType obj)
+    private void createEdge(Vector3 head, Vector3 tail, GameObject obj)
     {
         float distance = pointDistance(head, tail);
         Vector3 vector = getVectorTwoPoints(head, tail);
@@ -31,10 +35,7 @@ public class BuildWay : MonoBehaviour {
 
         for (int i = 0; i < distance; i++)
         {
-            GameObject objImp = GameObject.CreatePrimitive(obj);
-            //GameObject objImpl = new GameObject();
-            //objImpl = obj;
-            objImp.transform.position = new Vector3(head.x+basis.x * i, head.y + basis.y * i, head.z + basis.z * i);
+            GameObject dot = Instantiate(obj, new Vector3(head.x + basis.x * i, head.y + basis.y * i, head.z + basis.z * i),Quaternion.identity);
         }
     }
 
@@ -103,7 +104,6 @@ public class BuildWay : MonoBehaviour {
 
     }
     
-
     private void printWay(Node node)
     {
         Debug.Log(node.name);
@@ -114,7 +114,6 @@ public class BuildWay : MonoBehaviour {
         createEdge(next.transform.position, node.transform.position, way);
         printWay(next);
     }
-
 
     private void buildShortWay() 
     {

@@ -1,19 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Node : MonoBehaviour
 {
     private static int INF = 1000000;
-    public Transform transform;
+    private Transform transform;
 	public Node[] Nodes;
 	
-    public float weight = INF;
-    public int prev = -1;
-    public bool isOpen = false;
+    private float weight = INF;
+    private int prev = -1;
+    private bool isOpen = false;
 	
 	// Use this for initialization
 	void Start () {
+        transform = gameObject.transform;
 	}
 	
 	// Update is called once per frame
@@ -45,5 +47,13 @@ public class Node : MonoBehaviour
     public void setIsOpen(bool isOpen)
     {
         this.isOpen = isOpen;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.name == "Player")
+        {
+            BuildWaySingletone.run(this);
+        }
     }
 }
